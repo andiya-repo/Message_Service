@@ -65,7 +65,6 @@ pyRFC3339==1.1
 pyrsistent==0.18.1
 pyserial==3.5
 PySocks==1.7.1
-python-apt==2.3.0+ubuntu2.1
 python-debian===0.1.43ubuntu1
 pytz==2022.1
 PyYAML==5.4.1
