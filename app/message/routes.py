@@ -44,6 +44,11 @@ def message_add():
 
 @message_bp.route('/list', methods=['GET'])
 def message_list():
+
+    page = int(request.args.get('page', 1))
+    page -= 1
+    limit = int(request.args.get('limit', 10))
+
     message_filter = []
 
     message_filter.append(
@@ -58,7 +63,8 @@ def message_list():
         MessageService.message_type.like(f'%{request.args["message_type"]}%')) if request.args.get("message_type",
                                                                                                    False) else None
 
-    message = db.session.query(MessageService).filter(and_(*message_filter)).order_by(MessageService.time.desc()).all()
+    message = db.session.query(MessageService).filter(and_(*message_filter)).order_by(
+        MessageService.time.desc()).offset(page * limit).limit(limit).all()
 
     if message is None:
         return jsonify({'msg': 'Not found message', "data": None, "success": False}), 404
