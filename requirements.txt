@@ -4,7 +4,7 @@ MarkupSafe==3.0.2
 SQLAlchemy==2.0.36
 bcrypt==4.2.0
 blinker==1.8.2
-certifi=2024.8.30
+certifi==2024.8.30
 charset-normalizer==3.4.0
 click==8.1.7
 flask==3.0.3
