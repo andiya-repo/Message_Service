@@ -13,8 +13,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the working directory contents into the container
 COPY . .
 
-# Make port 7018 available to the world outside this container
-EXPOSE 7018
+# Make port 6018 available to the world outside this container
+EXPOSE 6018
 
 # Define environment variable
 ENV FLASK_APP wsgi.py
