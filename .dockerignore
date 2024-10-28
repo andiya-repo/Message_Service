@@ -1,0 +1,17 @@
+# Exclude Python cache files and directories
+__pycache__/
+*.pyc
+
+# Exclude test cases from the final image if they are not needed in production
+testcase/
+tests/
+
+# Exclude git files
+.git
+.gitignore
+
+# Exclude local environment settings
+.env
+
+# Exclude Dockerfile (optional, not needed in the image)
+Dockerfile
