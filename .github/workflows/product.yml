@@ -36,7 +36,7 @@ jobs:
     - name: Prepare SSH key and known hosts
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
+        echo "${{ secrets.PRODUCT_SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
 
@@ -49,15 +49,15 @@ jobs:
 
     - name: Test SSH connection
       run: |
-        ssh -vvv -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "echo 'SSH connection successful'"
+        ssh -vvv -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.PRODUCT_SERVER_USER }}@${{ secrets.PRODUCT_SERVER_HOST }} "echo 'SSH connection successful'"
 
     - name: Copy Docker image to VPS
       run: |
-        docker save message_service_product | bzip2 | ssh -vvv -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} 'bunzip2 | docker load'
+        docker save message_service_product | bzip2 | ssh -vvv -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.PRODUCT_SERVER_USER }}@${{ secrets.PRODUCT_SERVER_HOST }} 'bunzip2 | docker load'
 
     - name: Run Docker container on VPS
       run: |
-        ssh -vvv -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} <<EOF
+        ssh -vvv -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.PRODUCT_SERVER_USER }}@${{ secrets.PRODUCT_SERVER_HOST }} <<EOF
           docker stop message_service_product || true
           docker rm message_service_product || true
           docker run -d --name message_service_product -p 6018:6018 message_service_product
